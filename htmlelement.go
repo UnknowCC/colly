@@ -97,3 +97,17 @@ func (h *HTMLElement) ForEach(goquerySelector string, callback func(int, *HTMLEl
 		}
 	})
 }
+
+// ChildNumText return the stripped text content of the index number of matching
+// child or elements
+func (h *HTMLElement) ChildNumText(goquerySelector string, i int) string {
+	if i < 0 {
+		i = 0
+	}
+	selector := h.DOM.Find(goquerySelector)
+	if len(selector.Nodes) > i {
+		selector.Nodes = selector.Nodes[i:i+1]
+		return strings.TrimSpace(selector.Text())
+	}
+	return ""
+}
